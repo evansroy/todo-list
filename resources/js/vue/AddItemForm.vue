@@ -1,9 +1,7 @@
 <template>
     <div class="addItem">
-        <input type="text" v-model="item.name"/>
-        <!-- <font-awesome-icon icon="plus-square" @click="addItem()" :class="[item.name ? 'active' : 'inactive', 'plus']" /> -->
-
-        <font-awesome-icon icon="plus-square"  @click="addItem()" :class="[ item.name ? 'active' : 'inactive','plus']" />
+        <input type="text" v-model="item.name" />
+        <font-awesome-icon icon="plus-square" @click="addItem()" :class="[item.name ? 'active' : 'inactive', 'plus']" />
     </div>
 </template>
 
@@ -29,14 +27,16 @@ export default {
             })
                 .then(response => {
                     if (response.status == 201) {
-                        this.item.name == "";
+                        this.item.name = "";
+                        this.$emit('reload');
                     }
                 })
-                .cache(error => {
+                .catch(error => { // Use .catch to handle errors
                     console.log(error);
-                })
+                });
         }
     }
+
 }
 
 
